@@ -1,6 +1,6 @@
 from django.shortcuts import render
-
 from django.http import HttpResponse
+from .models import birds
 
 #HOME VIEW
 def home(request):
@@ -9,3 +9,7 @@ def home(request):
 #ABOUT VIEW
 def about(request):
     return render(request, 'about.html')
+
+# BIRD INDEX
+def birds_index(request):
+    return render(request, 'birds/index.html', {'birds': birds})
