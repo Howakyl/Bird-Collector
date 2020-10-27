@@ -1,21 +1,18 @@
 {% extends 'base.html' %}
 
 {% block title %}
-All Birds
+{{ bird.species }}
 {% endblock  %}
 
 {% block content %}
-<h1>All Spotted Birds!</h1>
+<h1>{{ bird.species }} Details!</h1>
 
-    {% for bird in birds %}
         <div class="card">
-            <a href="/birds/{{ bird.id }}">
                 <div class="card-content">
-                    <span>{{ bird.species }}</span>
+                    <span class="card-title">{{ bird.species }}:</span>
                     <p>Diet: {{ bird.likes }}</p>
                     <p>Native to: {{ bird.native_to }}</p>
                 </div>
-            </a>
         </div>
-    {% endfor %}
+
 {% endblock  %}
