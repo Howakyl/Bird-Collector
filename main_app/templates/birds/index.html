@@ -9,7 +9,7 @@ All Birds
 
     {% for bird in birds %}
         <div class="card">
-            <a href="/birds/{{ bird.id }}">
+            <a href="{% url 'detail' bird.id %}">
                 <div class="card-content">
                     <span>{{ bird.species }}</span>
                     <p>Diet: {{ bird.likes }}</p>

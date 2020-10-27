@@ -11,6 +11,13 @@ from django.db import models
 #     Bird('Steller\'s Jay' , 'nuts, berries' , 'Western North America'),
 # ]
 
+TIMES = (
+    ('DWN', 'Dawn'),
+    ('MRN', 'Morning'),
+    ('AFT', 'Afternoon'),
+    ('DSK', 'Dusk'),
+    ('NIT', 'Night')
+)
 
 class Bird(models.Model): 
     species = models.CharField(max_length=200)
@@ -20,4 +27,19 @@ class Bird(models.Model):
     def __str__(self):
         return self.species
 
+#Spotting model, will be the 'many' in the one to many relationship
+class Spotting(models.Model):
+    date = models.DateField()
+    location = models.CharField(max_length=100)
+    time_of_day = models.CharField(
+        max_length=3,
+
+        choices=TIMES,
+        default=TIMES[0][0]
+        )
+
+    bird = models.ForeignKey(Bird, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'Spotted at {self.location}, during {self.get_time_of_day_display()}, on {self.date}'
 
