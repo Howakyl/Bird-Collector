@@ -13,3 +13,16 @@ footer {
     padding-top: 0;
     text-align: right;
 }
+
+nav {
+    background-color: steelblue !important;
+}
+
+footer {
+    background-color: steelblue !important;
+}
+
+footer div {
+    margin-right: 10px;
+    margin-bottom: 5px;
+}
