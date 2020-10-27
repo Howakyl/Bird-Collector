@@ -1,6 +1,6 @@
 from django.shortcuts import render
 # from django.http import HttpResponse
-from .models import birds
+from .models import Bird
 
 #HOME VIEW
 def home(request):
