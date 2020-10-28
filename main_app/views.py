@@ -19,6 +19,7 @@ def birds_index(request):
     return render(request, 'birds/index.html', {'birds': birds})
 
 
+# BIRD DETAILS 
 def birds_detail(request, bird_id):
     bird = Bird.objects.get(id=bird_id)
     habitats_bird_doesnt_have = Habitat.objects.exclude(id__in = bird.habitats.all().values_list('id'))
@@ -30,12 +31,18 @@ def birds_detail(request, bird_id):
         'habitats': habitats_bird_doesnt_have
         })
 
-
+# ADD HABITAT
 def assoc_habitat(request, bird_id, habitat_id):
     Bird.objects.get(id=bird_id).habitats.add(habitat_id)
     return redirect('detail', bird_id=bird_id)
 
 
+def remove_habitat(request, bird_id, habitat_id):
+    Bird.objects.get(id=bird_id).habitats.remove(habitat_id)
+    return redirect('detail', bird_id=bird_id)
+
+
+# ADD A SPOTTING
 def add_spotting(request, bird_id):
     form = SpottingForm(request.POST)
 

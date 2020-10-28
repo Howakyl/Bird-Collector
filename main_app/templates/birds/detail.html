@@ -50,6 +50,10 @@
                     <span class="card-title">
                         {{ habitat.name }}
                     </span>
+                    <form action="{% url 'remove_habitat' bird.id habitat.id %}" method="delete">
+                    {% csrf_token %}
+                        <button type="submit" class="btn">Remove Habitat</button>
+                    </form>
                 </div>
                 </div>
             {% endfor %}
@@ -72,7 +76,7 @@
                 <div class="card-action">
                     <form action="{% url 'assoc_habitat' bird.id habitat.id %}" method="post">
                     {% csrf_token %}
-                        <button type="submit" class="btn">Add</button>
+                        <button type="submit" class="btn">Add Habitat</button>
                     </form>
                 </div>
             </div>
