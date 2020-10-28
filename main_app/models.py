@@ -41,5 +41,8 @@ class Spotting(models.Model):
     bird = models.ForeignKey(Bird, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'Spotted at {self.location}, during {self.get_time_of_day_display()}, on {self.date}'
+        return f'{self.bird.species} at {self.location} - during {self.get_time_of_day_display()}, on {self.date}'
+
+    class Meta:
+        ordering = ['-date']
 

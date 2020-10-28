@@ -7,12 +7,47 @@
 {% block content %}
 <h1>{{ bird.species }} Details!</h1>
 
-        <div class="card">
-                <div class="card-content">
-                    <span class="card-title">{{ bird.species }}:</span>
-                    <p>Diet: {{ bird.likes }}</p>
-                    <p>Native to: {{ bird.native_to }}</p>
-                </div>
-        </div>
-
+    <div class="card">
+            <div class="card-content">
+                <span class="card-title">{{ bird.species }}:</span>
+                <p>Diet: {{ bird.likes }}</p>
+                <p>Native to: {{ bird.native_to }}</p>
+            </div>
+    </div>
+    <div class="col s6">
+    <form action="{% url 'add_spotting' bird.id %}" method="POST">
+    {% csrf_token %}
+    {{ spotting_form.as_p }}
+    <input type="submit" class="btn" value="Record Spotting">
+    </form>
+    <table class="striped">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Location</th>
+                <th>Time Of Day</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for spotting in bird.spotting_set.all %}
+            <tr>
+                <td>{{spotting.date}}</td>
+                <td>{{spotting.location}}</td>
+                <td>{{spotting.get_time_of_day_display}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+    </div>
+    <script>
+        const dateEl = document.getElementById('id_date');
+            M.Datepicker.init(dateEl, {
+                format: 'yyyy-mm-dd',
+                defaultDate: new Date(),
+                setDefaultDate: true,
+                autoClose: true
+        });
+        const selectEl = document.getElementById('id_time_of_day');
+            M.FormSelect.init(selectEl);
+    </script>
 {% endblock  %}
