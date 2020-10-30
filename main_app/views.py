@@ -4,6 +4,7 @@ from .models import Bird, Habitat
 from .forms import SpottingForm, BirdForm
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
 
 
 # ---------------------------------------- STATIC PAGES
@@ -19,12 +20,14 @@ def about(request):
 
 # ---------------------------------------- BIRDS
 # BIRD INDEX
+@login_required
 def birds_index(request):
-    birds = Bird.objects.all()
+    birds = Bird.objects.filter(user=request.user)
     return render(request, 'birds/index.html', {'birds': birds})
 
 
 # BIRD DETAILS 
+@login_required
 def birds_detail(request, bird_id):
     bird = Bird.objects.get(id=bird_id)
     habitats_bird_doesnt_have = Habitat.objects.exclude(id__in = bird.habitats.all().values_list('id'))
@@ -36,6 +39,7 @@ def birds_detail(request, bird_id):
         'habitats': habitats_bird_doesnt_have
         })
 
+@login_required
 def add_bird(request):
     if request.method == 'POST':
         bird_form = BirdForm(request.POST)
@@ -51,11 +55,13 @@ def add_bird(request):
         return render(request, 'birds/new.html', context)
 
 
+@login_required
 def delete_bird(request, bird_id):
     Bird.objects.get(id=bird_id).delete()
     return redirect('index')
 
 
+@login_required
 def edit_bird(request, bird_id):
     bird = Bird.objects.get(id=bird_id)
 
@@ -71,11 +77,13 @@ def edit_bird(request, bird_id):
 
 # ---------------------------------------- HABITATS
 # ADD HABITAT
+@login_required
 def assoc_habitat(request, bird_id, habitat_id):
     Bird.objects.get(id=bird_id).habitats.add(habitat_id)
     return redirect('detail', bird_id=bird_id)
 
 
+@login_required
 def remove_habitat(request, bird_id, habitat_id):
     Bird.objects.get(id=bird_id).habitats.remove(habitat_id)
     return redirect('detail', bird_id=bird_id)
@@ -83,6 +91,7 @@ def remove_habitat(request, bird_id, habitat_id):
 
 # ---------------------------------------- BIRD SPOTTINGS
 # ADD A SPOTTING
+@login_required
 def add_spotting(request, bird_id):
     form = SpottingForm(request.POST)
 
