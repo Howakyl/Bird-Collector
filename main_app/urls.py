@@ -16,4 +16,6 @@ urlpatterns = [
     # bird habitats
     path('birds/<int:bird_id>/assoc_habitat/<int:habitat_id>/', views.assoc_habitat, name='assoc_habitat'),
     path('birds/<int:bird_id>/remove_habitat/<int:habitat_id>/', views.remove_habitat, name='remove_habitat'),
+    #auth
+    path('accounts/signup', views.signup, name='signup'),
 ]

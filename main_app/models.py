@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # class Bird:
 #     def __init__(self, species, likes, native_to):
@@ -29,8 +30,9 @@ class Bird(models.Model):
     species = models.CharField(max_length=200)
     likes = models.TextField(max_length=200)
     native_to = models.CharField(max_length=100)
-    
+
     habitats = models.ManyToManyField(Habitat)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.species

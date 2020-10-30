@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Log In</h1>
+
+<!-- Login Form-->
+<form action="{% url 'login' %}" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" class="btn" value="login">
+    <input type="hidden" class="next" value="{{ next }}">
+    <!-- the hidden input is a django feature, that will automatically redirect a user that tries to access a protected route -->
+</form>
+
+{% endblock %}
