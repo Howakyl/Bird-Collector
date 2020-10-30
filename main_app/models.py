@@ -29,6 +29,7 @@ class Bird(models.Model):
     species = models.CharField(max_length=200)
     likes = models.TextField(max_length=200)
     native_to = models.CharField(max_length=100)
+    
     habitats = models.ManyToManyField(Habitat)
 
     def __str__(self):

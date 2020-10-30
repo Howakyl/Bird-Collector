@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
 # from django.http import HttpResponse
 from .models import Bird, Habitat
-from .forms import SpottingForm
+from .forms import SpottingForm, BirdForm
 
+
+# ---------------------------------------- STATIC PAGES
 #HOME VIEW
 def home(request):
     return render(request, 'home.html')
@@ -13,6 +15,7 @@ def about(request):
     return render(request, 'about.html')
 
 
+# ---------------------------------------- BIRDS
 # BIRD INDEX
 def birds_index(request):
     birds = Bird.objects.all()
@@ -31,6 +34,20 @@ def birds_detail(request, bird_id):
         'habitats': habitats_bird_doesnt_have
         })
 
+def add_bird(request):
+    if request.method == 'POST':
+        bird_form = BirdForm(request.POST)
+        if bird_form.is_valid():
+            new_bird = bird_form.save()
+
+            return redirect('detail', new_bird.id)
+    else:
+        form = BirdForm()
+        context = {'form': form}
+        return render(request, 'birds/new.html', context)
+
+
+# ---------------------------------------- HABITATS
 # ADD HABITAT
 def assoc_habitat(request, bird_id, habitat_id):
     Bird.objects.get(id=bird_id).habitats.add(habitat_id)
@@ -42,6 +59,7 @@ def remove_habitat(request, bird_id, habitat_id):
     return redirect('detail', bird_id=bird_id)
 
 
+# ---------------------------------------- BIRD SPOTTINGS
 # ADD A SPOTTING
 def add_spotting(request, bird_id):
     form = SpottingForm(request.POST)
@@ -53,3 +71,6 @@ def add_spotting(request, bird_id):
         new_spotting.save()
         #ALWAYS REDIRECT, not render, when changing data in the db
     return redirect('detail', bird_id=bird_id)
+
+
+#AUTH
