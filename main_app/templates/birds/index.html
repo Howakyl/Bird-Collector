@@ -12,8 +12,8 @@ All Birds
             <a href="{% url 'detail' bird.id %}">
                 <div class="card-content">
                     <span><h4>{{ bird.species }}</h4></span>
-                    <p>Diet: {{ bird.likes }}</p>
-                    <p>Native to: {{ bird.native_to }}</p>
+                    <p class="bird-info">Diet: {{ bird.likes }}</p>
+                    <p class="bird-info">Native to: {{ bird.native_to }}</p>
                 </div>
             </a>
         </div>

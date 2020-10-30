@@ -9,19 +9,23 @@ main {
     flex: 2 0 auto;
 }
 
+nav {
+    background-color: #2AA69A !important;
+}
+
 footer {
     padding-top: 0;
     text-align: right;
+    background-color: #2AA69A !important;
 }
 
-nav {
-    background-color: steelblue !important;
+a {
+    color: #2AA69A;
 }
 
-footer {
-    background-color: steelblue !important;
+.bird-info {
+    color: black;
 }
-
 footer div {
     margin-right: 10px;
     margin-bottom: 5px;
