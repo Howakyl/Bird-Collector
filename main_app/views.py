@@ -47,6 +47,10 @@ def add_bird(request):
         return render(request, 'birds/new.html', context)
 
 
+def delete_bird(request, bird_id):
+    Bird.objects.get(id=bird_id).delete()
+    return redirect('index')
+
 # ---------------------------------------- HABITATS
 # ADD HABITAT
 def assoc_habitat(request, bird_id, habitat_id):
