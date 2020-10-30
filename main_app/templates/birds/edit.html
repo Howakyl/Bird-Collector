@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Edit Bird</h1>
+
+<form method="POST">
+<!-- excluding the action can be beneficial. The endpoint will be your current destination! -->
+    <!-- CSRF TOKEN - Cross Site Request Forgery -->
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <button class="btn" type="submit">Update</button>
+</form>
+
+{% endblock %}

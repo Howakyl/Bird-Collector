@@ -51,6 +51,20 @@ def delete_bird(request, bird_id):
     Bird.objects.get(id=bird_id).delete()
     return redirect('index')
 
+
+def edit_bird(request, bird_id):
+    bird = Bird.objects.get(id=bird_id)
+
+    if request.method == 'POST':
+        bird_form = BirdForm(request.POST, instance=bird)
+        if bird_form.is_valid():
+            updated_bird = bird_form.save()
+            return redirect('detail', updated_bird.id)
+    else:
+        form = BirdForm(instance=bird)
+        context = {'form': form}
+        return render(request, 'birds/edit.html', context)
+
 # ---------------------------------------- HABITATS
 # ADD HABITAT
 def assoc_habitat(request, bird_id, habitat_id):

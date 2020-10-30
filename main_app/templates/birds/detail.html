@@ -16,7 +16,7 @@
             </div>
 
             <div class="card-action">
-                <a href="" type="submit" class="btn-small">Edit</a>
+                <a href="{% url 'edit_bird' bird.id %}" type="submit" class="btn-small">Edit</a>
                 <a href="{% url 'delete_bird' bird.id %}" type="submit" class="btn-small red">Delete</a>
             </div>
         </div>
